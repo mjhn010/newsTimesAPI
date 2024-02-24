@@ -3,20 +3,44 @@ let closeIcon = document.querySelector(".close");
 let mobileMenus = document.querySelector(".m-menus"); 
 let search = document.querySelector(".search");
 let inputArea = document.getElementById("input-area");
+const menus = document.querySelectorAll(".menus button")
+menus.forEach((menu) =>menu.addEventListener("click",(event)=>getNewsBycategory(event)));
 let newsList = []
 const apiKey = `dc89acfcece146f98594bfaabf5bc4b5`;
-const getLateNews = async()=>{
-    const url = new URL(`https://jun-newstimes.netlify.app//top-headlines?category=science`);
-    // const url = new URL(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`);
-    const response = await fetch(url)
-    const data = await response.json();
-    newsList = data.articles;
-    render();
-    
-    console.log("dd",newsList);
-    
+let url = new URL(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`);
+
+const getNews = async() =>{
+    try{
+        const response = await fetch(url)
+        const data = await response.json();
+        if(response.status == 200){
+            if(data.articles.length === 0){
+                throw new Error('No result for this Error')
+            }
+            newsList = data.articles;
+            render();
+        }else{
+            throw new Error(data.message);
+        }
+    }catch(error){
+        errorRender(error.message)
+    }
 }
 
+const getLateNews = async()=>{
+    // const url = new URL(`https://jun-newstimes.netlify.app//top-headlines?category=science`);
+    url = new URL(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`);
+    getNews();
+}
+//카테고리별 
+const getNewsBycategory = async(event)=>{
+    const category = event.target.textContent.toLowerCase();
+    url = new URL(`https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${apiKey}`);
+    getNews();
+    
+    
+}
+//모바일 클릭이벤트
 hamburgerMenu.addEventListener('click',()=>{
     mobileMenus.classList.remove("d-none")
     mobileMenus.classList.add("d-flex")
@@ -37,6 +61,13 @@ const imageError = ()=>{
         return true;
     }
 }
+
+const getNewsByKeyWord = async() =>{
+    const keyWord = document.getElementById("search-input").value;
+    url = new URL(`https://newsapi.org/v2/top-headlines?country=us&q=${keyWord}&apiKey=${apiKey}`);
+    getNews();
+}   
+//UI그려주는함수
 const render=()=>{
     
     const newHTML = newsList.map((news)=>
@@ -78,4 +109,14 @@ const render=()=>{
     document.getElementById("news-board").innerHTML = newHTML;
     
 }
+const errorRender = (errorMessage) =>{
+   const errorHTML = `<div class="alert alert-danger" role="alert">
+    ${errorMessage}
+  </div>`
+
+  document.getElementById("news-board").innerHTML =errorHTML
+}
 getLateNews();
+//1. 버튼들에게 클릭 이벤트를 줘야한다.
+//2. 카테고리별 뉴스 가져오기
+//3. 그 뉴스를 보여주기
