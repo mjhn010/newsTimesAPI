@@ -67,14 +67,14 @@
     background-color: beige;
 }
 .hamburger-menu{
-    width: 14px;
-    height: 14px;
+    width: 20px;
+    height: 20px;
     margin-right: 12px;
     display: none;
 }
 .search{
-    width: 14px;
-    height: 14px;
+    width: 20px;
+    height: 20px;
 }
 .d-flex{
     display: flex;
@@ -118,10 +118,10 @@
         font-size: 20px;
     } 
     .close{
-        width: 16px;
-        height: 16px;
+        width: 20px;
+        height: 20px;
         position: absolute;
-        top: -30px;
+        top: -6%;
         right: 0;
         
     } 
