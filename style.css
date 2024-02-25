@@ -50,6 +50,7 @@
  background-color: cornflowerblue;
  text-align: center;
  border-radius: 4px;
+ font-size: 1rem;
 }
 #search-input{
     height: 25px;
@@ -78,6 +79,9 @@
 }
 .d-flex{
     display: flex;
+}
+.magin-left-2{
+    margin-left: 2%;
 }
 .d-none{
     display: none;
@@ -121,7 +125,7 @@
         width: 20px;
         height: 20px;
         position: absolute;
-        top: -6%;
+        top: 0%;
         right: 0;
         
     } 
