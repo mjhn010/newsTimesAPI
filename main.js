@@ -9,9 +9,10 @@ menus.forEach((menu) =>
 );
 let newsList = [];
 const apiKey = `dc89acfcece146f98594bfaabf5bc4b5`;
-let url = new URL(
-  `https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`
-);
+ let url = new URL(`https://jun-newstimes.netlify.app//top-headlines`);
+// let url = new URL(
+//   `https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`
+// );
 let totalResults = 0;
 let page = 1;
 const pageSize = 10;
@@ -40,17 +41,22 @@ const getNews = async () => {
 };
 
 const getLateNews = async () => {
-  // const url = new URL(`https://jun-newstimes.netlify.app//top-headlines?category=science`);
-  url = new URL(
-    `https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`
-  );
-  getNews();
+    // url = new URL(
+    //   `https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`
+    // );
+    url = new URL(
+        `https://jun-newstimes.netlify.app//top-headlines`
+      );
+    getNews();
 };
 //카테고리별
 const getNewsBycategory = async (event) => {
   const category = event.target.textContent.toLowerCase();
+//   url = new URL(
+//     `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${apiKey}`
+//   );
   url = new URL(
-    `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${apiKey}`
+    `https://jun-newstimes.netlify.app//top-headlines?category=${category}`
   );
   getNews();
 };
@@ -78,8 +84,11 @@ const imageError = () => {
 
 const getNewsByKeyWord = async () => {
   const keyWord = document.getElementById("search-input").value;
+//   url = new URL(
+//     `https://newsapi.org/v2/top-headlines?country=us&q=${keyWord}&apiKey=${apiKey}`
+//   );
   url = new URL(
-    `https://newsapi.org/v2/top-headlines?country=us&q=${keyWord}&apiKey=${apiKey}`
+    `https://jun-newstimes.netlify.app//top-headlines?q=${keyWord}`
   );
   getNews();
 };
@@ -152,20 +161,18 @@ const paginationRender = (pageNum) => {
     lastPage - (groupSize - 1) <= 0 ? 1 : lastPage - (groupSize - 1);
   let paginationHTML = "";
   for (let i = firstPage; i <= lastPage; i++) {
-    paginationHTML += `<li class="page-item ${
-      i === page ? 'active' : ''
-    }" onclick="moveToPage(${i})"><a "class="page-link">${i}</a></li>`;
+    paginationHTML += `<li class="page-item ${i===page?"active":''}" onclick="moveToPage(${i})"><a class="page-link">${i}</a></li>`
   }
   document.querySelector(".pagination").innerHTML = paginationHTML;
-  //     <nav aria-label="Page navigation example">
-  //   <ul class="pagination">
-  //     <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-  //     <li class="page-item"><a class="page-link" href="#">1</a></li>
-  //     <li class="page-item"><a class="page-link" href="#">2</a></li>
-  //     <li class="page-item"><a class="page-link" href="#">3</a></li>
-  //     <li class="page-item"><a class="page-link" href="#">Next</a></li>
-  //   </ul>
-  // </nav>
+//       <nav aria-label="Page navigation example">
+//     <ul class="pagination">
+//       <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+//       <li class="page-item"><a class="page-link" href="#">1</a></li>
+//       <li class="page-item"><a class="page-link" href="#">2</a></li>
+//       <li class="page-item"><a class="page-link" href="#">3</a></li>
+//       <li class="page-item"><a class="page-link" href="#">Next</a></li>
+//     </ul>
+//   </nav>
 };
 const moveToPage = (pageNum) => {
   page = pageNum;
