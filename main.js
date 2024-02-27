@@ -7,12 +7,14 @@ const menus = document.querySelectorAll(".menus button");
 menus.forEach((menu) =>
   menu.addEventListener("click", (event) => getNewsBycategory(event))
 );
+//api 빈배열에 담기위한 배열
 let newsList = [];
 const apiKey = `dc89acfcece146f98594bfaabf5bc4b5`;
  let url = new URL(`https://jun-newstimes.netlify.app//top-headlines`);
 // let url = new URL(
 //   `https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`
 // );
+//페이지네이션
 let totalResults = 0;
 let page = 1;
 const pageSize = 10;
@@ -51,6 +53,7 @@ const getLateNews = async () => {
 };
 //카테고리별
 const getNewsBycategory = async (event) => {
+    //클릭한 카테고리를 담는다 toLowerCase 소문자스트링으로변경.
   const category = event.target.textContent.toLowerCase();
 //   url = new URL(
 //     `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${apiKey}`
